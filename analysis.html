@@ -45,6 +45,8 @@
 
     <script>
 
+    var table; // the data table
+
     let fileName = 'buildings_group.csv'
     // var li = ['B1_STR_NAME','OBJECTID','APPLICANT_BUS_NAME','APPLICANT_FULL_NAME','B1_ALT_ID','LSN','B1_PER_TYPE','PERMIT_STATUS','ISSUED_YEAR','ZIP_CODE'];
     var li = ['B1_STR_NAME','OBJECTID','APPLICANT_BUS_NAME','APPLICANT_FULL_NAME','B1_ALT_ID','LSN','ZIP_CODE','B1_PER_TYPE','PERMIT_STATUS','ISSUED_YEAR'];
@@ -82,14 +84,44 @@
         // console.log(data2[0])
         Highcharts.chart('container', {
             chart:{
-                type:'pie'
+                type:'column',
+
+                xAxis: {
+                    // min:1
+                    min: 1,
+                categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+                },
+                events:{
+                drilldown: function(e){
+                    if(!!table){
+                        console.log(this);
+                        console.log(this.options.series[0].name);
+                        // console.log(this.options.point.name);
+                        table.search(this.ddDupes[0]).draw();
+                        // call the search
+                    }
+
+                },
+
+                drillup: function(e){
+                    if(!!table){
+                        console.log(this)
+                        table.search("").draw();
+                        // table.search(this)
+                    }
+
+                    // alert("drill");
+                }}
             },
+    
             title:{
-                text:'<h3>Buildings in Recent Years (2010-2017)</h3>'
+                text:'<h3>Buildings in Recent Years (2010-2018)</h3>'
             },
-        // subtitle: {
-     //        text: 'Click the slices to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
-     //    },
+            
+
+        subtitle: {
+            text: 'View Source: <a href="https://data-columbus.opendata.arcgis.com/datasets/building-permits">Building-Permits</a>'
+        },
         plotOptions: {
             series: {
                 dataLabels: {
@@ -108,11 +140,7 @@
 
         "drilldown": {
             "series":data2
-        }
-        
-        })
-
-
+        }})
     }
 
     function load_data(error,data){
@@ -153,13 +181,16 @@
                     if(d.type==key){
                         yearHash[key].push([d.year,d.count]);
                 }
+             yearHash[key].sort(function(a,b){return a[0]-b[0]})
+             console.log(yearHash[key])
             })
         }
 
 
         //
         // console.log(data1[0])
-        
+        data1.sort(function(a,b){return b.y-a.y})
+        console.log(data1)
         // build the data for the first layer
         dataByBuilding = [{
             "name":"Buildings",
@@ -257,7 +288,7 @@
         // console.log(str)
         // var li = ['B1_STR_NAME','OBJECTID','APPLICANT_BUS_NAME','APPLICANT_FULL_NAME','B1_ALT_ID','LSN','ZIP_CODE','B1_PER_TYPE','PERMIT_STATUS','ISSUED_YEAR']
         //slice
-        dataSet = dataSet
+        // dataSet = dataSet.slice(0,1000)
         // dataSet2 = dataSet
         //slice
         // dataset
@@ -273,7 +304,7 @@
         // load the data 
         $(document).ready(function() {
              // console.log("fuck");
-                $('#DetailsData').DataTable({
+               table = $('#DetailsData').DataTable({
                     data:dataSet,
                     columns: nameColumns,
                     "deferLoading": 1000000,
@@ -324,8 +355,8 @@
     <!-- The main content -->
     <div ID="main-content">
       
-    <h2>Data and Analysis</h2>
-       <div style ="height:40%" ID = "container">
+    <h3>Data and Analysis</h3>
+       <div style ="height:50%" ID = "container">
                
        </div>
        <!-- <div>
