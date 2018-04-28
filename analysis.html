@@ -38,6 +38,7 @@
         #main-content {
           margin-top:50px;
           margin-left:100px;
+          margin-right:100px;
         } 
        
     </style>
@@ -95,6 +96,7 @@
         // console.log(labels)
         Highcharts.chart('container', {
             chart:{
+                height:650,
                 type:'column',
                 events:{
                 drilldown: function(e){
@@ -315,7 +317,7 @@
         // console.log(str)
         // var li = ['B1_STR_NAME','OBJECTID','APPLICANT_BUS_NAME','APPLICANT_FULL_NAME','B1_ALT_ID','LSN','ZIP_CODE','B1_PER_TYPE','PERMIT_STATUS','ISSUED_YEAR']
         //slice
-        // dataSet = dataSet.slice(0,1000)
+         dataSet = dataSet.slice(0,1000)
         // dataSet2 = dataSet
         //slice
         // dataset
@@ -380,21 +382,20 @@
     </div>
 
     <!-- The main content -->
-    <div ID="main-content">
-      
-    <h3>Data and Analysis</h3>
-       <div style ="height:50%" ID = "container">
+    <div ID="main-content ">   
+        <h3>Data and Analysis</h3>
+       <div style ="height:700px" ID = "container">
                
        </div>
        <!-- <div>
        
         </div> -->
-       <div style = "margin:5%;height:40%" ID="Details_Table">
+       <div style = "margin:50px;height:500px" ID="Details_Table">
         <h3 style ="color:purple">Details Table View</h3>
         
-        <table id="DetailsData" class="display" style="width:100%">
+            <table id="DetailsData" class="display" style="width:100%">
 
-        </table>
+            </table>
 
        </div>
 
