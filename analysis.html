@@ -110,7 +110,16 @@
                     }
 
                 },
+                colors: ['#016fb9','#f4e04d','#61e786','#6d66ba', '#6d66ba','#75d1dd','#f06543','#d65ca3',"#016fb9",'#934593','#ffa630','#61e786'],
+                //
+                /*
+                        1,2,3 Family  #6d66ba
+                        Residential  #016fb9
+                        Commercial  #f4e04d
+                        Multi-Family  #61e786
+                        Demolition  #f06543
 
+                */
                 drillup: function(e){
                     if(!!table){
                         // console.log(this)
@@ -307,7 +316,7 @@
         // console.log(str)
         // var li = ['B1_STR_NAME','OBJECTID','APPLICANT_BUS_NAME','APPLICANT_FULL_NAME','B1_ALT_ID','LSN','ZIP_CODE','B1_PER_TYPE','PERMIT_STATUS','ISSUED_YEAR']
         //slice
-        // dataSet = dataSet.slice(0,1000)
+        dataSet = dataSet.slice(0,1000)
         // dataSet2 = dataSet
         //slice
         // dataset
