@@ -22,13 +22,17 @@
           /*background-repeat: no-repeat;*/
           background-color: #61e786;
           font-weight:1000;
-          font-size: 20px;
+          font-size: 18px;
           font-family: Helvetica, Sans-Serif;
           color:cornsilk;
          /* height:100%;
           width:100%;*/
           /*give the image */
         }
+
+    span{
+      color:#1E90FF;
+    }
   /* textarea{
 
     top:50%;
@@ -70,15 +74,15 @@
       position: absolute;
       left: 990px;
       top: 150px;
-      height: 370px;
+      height: 600px;
       width: 500px;
     }
 
     #street-view{
       position: absolute;
       left: 1005px;
-      top: 470px;
-      height: 510px;
+      top: 550px;
+      height: 440px;
       width: 470px;
     }
 
@@ -130,7 +134,7 @@
         margin-right: 2px; 
         background-color: teal;
 
-        path {
+    path {
       fill: orange;
       stroke: white;
     }
@@ -161,7 +165,7 @@
         </div>
       </nav>
   </div>
-<div>
+<div style="color:#FF8C00">
   <h2 style ="text-align:center">The Urban Structure of Columbus Ohio</h2>
   <p style ="text-align:center">  A look at the city's structural development from 2013 to 2018.</p>
 </div>
@@ -178,9 +182,9 @@
         <textarea cols="40" rows="1" id="myTextArea" value="Search" placeholder="Search an Address&hellip;"></textarea>
       </td>
       <!-- <td width = "40"> </td> -->
-      <td width = "20"> </td>
+      <td width = "30"> </td>
       <td>
-        <button onClick="handleClick()">Go!</button>
+        <button onClick="handleClick()"><span>Go!</span></button>
       </td>
     </tr>
     </table>
@@ -205,9 +209,9 @@
     <img src="Legend.jpg" alt="" style = "width:250px"></div>
 <div> -->
   <div class="container" id="panel">
-    <div class="panel panel-default" style="position: relative; height: 300px;">
-      <div class="panel-heading">More Data Point Information</div>
-      <div class="panel-body"><p>Address: <span id="address-cell"> </span> </p><p>Type: <span id="type-cell"> </span> </p><p>Sub-Type: <span id="sub-type-cell"> </span> </p><p>Category: <span id="category-cell"> </span> </p><p>Applicant Name: <span id="name-cell"> </span> </p><p>Applicant Business Name: <span id="bus-cell"> </span> </p><p>Permit Status: <span id="permit-cell"> </span> </p><p>Year Issued: <span id="year-cell"> </span> </p></div>
+    <div class="panel panel-default" style="position: relative;">
+      <div class="panel-heading" style="color:#00FA9A">More Data Point Information</div>
+      <div class="panel-body" style="color:#1E90FF"><p>Address: <span id="address-cell"> </span> </p><p>Type: <span id="type-cell"> </span> </p><p>Sub-Type: <span id="sub-type-cell"> </span> </p><p>Category: <span id="category-cell"> </span> </p><p>Applicant Name: <span id="name-cell"> </span> </p><p>Applicant Business Name: <span id="bus-cell"> </span> </p><p>Permit Status: <span id="permit-cell"> </span> </p><p>Year Issued: <span id="year-cell"> </span> </p></div>
     </div>
   </div>
 
