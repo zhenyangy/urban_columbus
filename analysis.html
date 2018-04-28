@@ -96,7 +96,6 @@
         Highcharts.chart('container', {
             chart:{
                 type:'column',
-
                 events:{
                 drilldown: function(e){
                     labels = label2 
@@ -110,8 +109,6 @@
                     }
 
                 },
-                colors: ['#016fb9','#f4e04d','#61e786','#6d66ba', '#6d66ba','#75d1dd','#f06543','#d65ca3',"#016fb9",'#934593','#ffa630','#61e786'],
-                //
                 /*
                         1,2,3 Family  #6d66ba
                         Residential  #016fb9
@@ -132,6 +129,8 @@
                 }}
             },
 
+            colors: ['#016fb9','#f4e04d','#61e786','#6d66ba', 'red','#75d1dd','#f06543','#d65ca3',"black",'#934593','#ffa630','#61e786'],
+                //
              xAxis: {
                     // min:1
                     type:'category'
@@ -290,7 +289,7 @@
         // build the data for the first layer
         dataByBuilding = [{
             "name":"Buildings",
-            "colorByPoint":true,
+            // "colorByPoint":true,
             "data":data1 }];
 
         // console.log(dataByBuilding)
