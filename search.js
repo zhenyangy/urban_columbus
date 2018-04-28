@@ -358,3 +358,12 @@ function lookup_all(count, outcount, input, output ){
         lookup_all(count + 1, count, input, output);
     }
 }
+function initialize() {
+    panorama = new google.maps.StreetViewPanorama(
+        document.getElementById('street-view'),
+        {
+          position: {lat: 39.9612, lng: -83.0000},
+          pov: {heading: 165, pitch: 0},
+          zoom: 1
+        });
+  }
