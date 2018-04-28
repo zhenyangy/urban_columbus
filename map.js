@@ -69,7 +69,7 @@ async function show() {
 
 show().then(function (data) {
     let data1 = data
-    // console.log(data);
+    console.log(data);
     rec.on('click', clicked);
     d3.json('zone-2.json', function (error, mapData) {
         var features = mapData.features;
@@ -79,7 +79,7 @@ show().then(function (data) {
             .enter().append('path')
             .attr('d', path)
             .attr('vector-effect', 'non-scaling-stroke')
-            .style('fill', fillFn)
+            .style('fill', "white")
 
             .on("mouseover", function (d) {
                 console.log(d.properties.GENERAL_ZONING_CATEGORY);
@@ -103,13 +103,36 @@ show().then(function (data) {
             .attr("cy", function (d) { return projection([d.X, d.Y])[1]; })
             .attr("r", "0.5px")
             .attr("stroke-width", 0)
-            .attr('fill', yearColor)
-            .on('click', clicked_building);
+            .attr('fill', function(d){ return buildingColor(d)})
+            .on('click', function(d){clicked_building(d)});
     });
     // Get building color
-    function yearColor(d) {
-        var n = d.ISSUED_YEAR;
-        return color_building((n - 2010) * 2)
+    function buildingColor(d) {
+        // for (var i = 0; i < d.length; i++){
+            // var flag = true;
+            if(d.B1_PER_TYPE == "Commercial"){
+                return "#F4304D";
+            }
+            else if(d.B1_PER_TYPE == "Residential"){
+                return "#016FB9";
+            }
+            else if(d.B1_PER_TYPE == "Multi_Family"){
+                return "#61E786";
+            }
+            else if(d.B1_PER_TYPE == "Demolition"){
+                return "#F06543";
+            } 
+            else if(d.B1_PER_TYPE == "1,2,3 Family"){
+                return "#6D66BA";
+            }
+            // else{
+            //     flag = false;
+            // }
+            // if(flag){
+            //     tempArray.splice(i,1,mydata[i].LSN);
+            // }
+        // }
+        // return color_building((n - 2010) * 2)
     }
     // Get sector type
     function typeLength(d) {

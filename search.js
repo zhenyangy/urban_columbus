@@ -9,11 +9,34 @@ var search;
 var tempArray = [];
 var tempArray_all = [];
 var location_find = [];
+output2 = [];
+tempArray2 = [];
 
 d3.csv("Building_Permits.csv", function cb(mydata){
     for (var i = 0; i < mydata.length; i++){
         tempArray_all.splice(i,1,mydata[i]);
-        tempArray.splice(i,1,mydata[i].LSN);
+        var flag = true;
+        if(mydata[i].B1_PER_TYPE == "Commercial"){
+            tempArray2.splice(i,1,"#F4304D");
+        }
+        else if(mydata[i].B1_PER_TYPE == "Residential"){
+            tempArray2.splice(i,1,"#016FB9");
+        }
+        else if(mydata[i].B1_PER_TYPE == "Multi_Family"){
+            tempArray2.splice(i,1,"#61E786");
+        }
+        else if(mydata[i].B1_PER_TYPE == "Demolition"){
+            tempArray2.splice(i,1,"#F06543");
+        } 
+        else if(mydata[i].B1_PER_TYPE == "1,2,3 Family"){
+            tempArray2.splice(i,1,"#6D66BA");
+        }
+        else{
+            flag = false;
+        }
+        if(flag){
+            tempArray.splice(i,1,mydata[i].LSN);
+        }
     }
     search = Wade(tempArray);
 });
@@ -65,7 +88,7 @@ var marker3;
 var txt1 = idk
     .on("mouseover", function(d) {
         if(!colFlag1){
-            d3.select(this).style('fill', 'darkOrange');
+            d3.select(this).style('fill', output2[0]);
         }
     })
     .on("mouseout", function(d, i) {
@@ -95,7 +118,7 @@ var txt2 = idk2
     .on("mouseover", function(d) {
         if(!colFlag2){
             d3.select(this)
-            .style('fill', 'darkOrange');
+            .style('fill', output2[1]);
         }
     })
     .on("mouseout", function(d, i) {
@@ -125,7 +148,7 @@ var txt3 = idk3
     .on("mouseover", function(d) {
         if(!colFlag3){
             d3.select(this)
-            .style('fill', 'darkOrange');
+            .style('fill', output2[2]);
         }
     })
     .on("mouseout", function(d, i) {
@@ -157,12 +180,13 @@ function handleClick(event){
             var input = document.getElementById("myTextArea").value.toUpperCase();
             if(search(input)[count].score >= .5){
                 output.splice(count,1,tempArray[search(input)[count].index]);
+                output2.splice(count,1,tempArray2[search(input)[count].index]);
                 // location_find.splice(count, 1, (tempArray_all[search(input)[count].index]));
                 count++;
-                lookup(count,count, input, output);
+                lookup(count,count, input, output, output2);
                 // lookup_all(count,count, input, location_find);
                 count++;
-                lookup(count,count, input, output);
+                lookup(count,count, input, output, output2);
                 // lookup_all(count,count, input, location_find);
                 match_name(output, location_find)
                 // store location
@@ -283,7 +307,7 @@ function clicked_search(d) {
 
 }
 
-function lookup(count, outcount, input, output ){
+function lookup(count, outcount, input, output, output2 ){
     var flag = true;
     for (var j = outcount; j > 0; j--){
                        if(output[j-1] == tempArray[search(input)[count].index])
@@ -292,6 +316,7 @@ function lookup(count, outcount, input, output ){
     if(flag){
        if(search(input)[count].score == 1){
            output.splice(outcount,1,tempArray[search(input)[count].index]);
+           output2.splice(outcount,1,tempArray2[search(input)[count].index]);
            count++;
        }
        else{
@@ -300,7 +325,7 @@ function lookup(count, outcount, input, output ){
        }
     }
     else{
-        lookup(count + 1, count, input, output);
+        lookup(count + 1, count, input, output, output2);
     }
 }
 function match_name(input, output){
