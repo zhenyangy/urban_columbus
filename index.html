@@ -21,7 +21,7 @@
           /*give the image */
         }
         #main-content {
-          margin-top:50px;
+          margin-top:0px;
           margin-left:100px;
         } 
        
@@ -70,7 +70,7 @@
             .style("border", "2px solid grey");
             // remove pictures
             // add images
-            var img = g.append("svg:image")
+            var img1 = g.append("svg:image")
                         // .attr('')
                         .attr("xlink:href", "pics/"+scale+".png")
                         .attr('position','relative')
@@ -80,7 +80,7 @@
                         .attr("height", "800")
                         .attr("stroke", "grey")
                         .attr("stroke-width", "2px");
-            var img = g.append("svg:image")
+            var img2 = g.append("svg:image")
                         // .attr('')
                         .attr("xlink:href", "Legend.jpg")
                         .attr('position','relative')
@@ -97,7 +97,6 @@
 
   <body style='background-color:'>
     <!-- navigation bars -->
-    <div>
     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
         <div class="container-fluid">
           <div class="navbar-header">
@@ -108,21 +107,23 @@
             <li><a href="map_interaction.html">Interactive Map</a></li>
             <li><a href="analysis.html">Data Analysis</a></li>
           </ul>
-          <!-- <button class="btn btn-danger navbar-btn">Button</button> -->
         </div>
       </nav>
-    </div>
+
     <img src="splash-image.jpg" alt="" style="
-    display: block;
+    display: inline-block;
+    padding:0;
+    top:0px;
     margin-top : 0;
-    margin-left: auto;
-    margin-right: auto;">
+    margin-left: 0;
+    margin-right: 0;"
+    width=100%>
     <!-- The main content -->
     <div ID="main-content"  align = "center" style=" background-color:;width:1200px">
        <h2 style ="text-align:center">The Urban Structure of Columbus Ohio</h2>
 
        <br>
-       <p>  A look at the city's structural development from 2013 to 2018.</p>
+       <p>  A look at the city's structural development from 2010 to 2018.</p>
        <h2 style = "text-align:left">2010<span style="float:right;">2018</span></h2>
        <div class="slideBarClass" id ="slidecontainer" >
            <input type="range" min="1" max="9" value="1" class="slider" id="myRange">
