@@ -81,23 +81,31 @@
     }
      
     function loadingHighCharts(data1, data2){
-        // console.log(data2[0])
+        var label3 = [1,2,3,4,5,6,7,8,9,10,11,12]
+        var label2 = [2010,2011,2012,2013,2014,2015,2016,2017,2018]
+        var label1 = [];
+        typeData = data1[0].data;
+        // console.log(data1[0])
+        typeData.forEach(function(d,i){
+            // console.log(d)
+            label1.push(d.name)
+        })
+        var labels =label3
+        // labels
+        // console.log(labels)
         Highcharts.chart('container', {
             chart:{
                 type:'column',
 
-                xAxis: {
-                    // min:1
-                    min: 1,
-                categories: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
-                },
                 events:{
                 drilldown: function(e){
+                    labels = label2 
                     if(!!table){
-                        console.log(this);
-                        console.log(this.options.series[0].name);
+                        // console.log(this);
+                        // console.log(this.options.series[0].name);
                         // console.log(this.options.point.name);
                         table.search(this.ddDupes[0]).draw();
+                        
                         // call the search
                     }
 
@@ -105,13 +113,21 @@
 
                 drillup: function(e){
                     if(!!table){
-                        console.log(this)
+                        // console.log(this)
                         table.search("").draw();
+                        labels = label1
                         // table.search(this)
                     }
 
                     // alert("drill");
                 }}
+            },
+
+             xAxis: {
+                    // min:1
+                    categories: labels,
+                    // min: labels[0],
+                    // categories: []
             },
     
             title:{
@@ -124,9 +140,11 @@
         },
         plotOptions: {
             series: {
+                groupPadding:0.2,
+                pointPadding:0.1,
                 dataLabels: {
                     enabled: true,
-                    format: '{point.name}: {point.y}'
+                    format: '{point.y}'
                 }
             }
         },
@@ -182,7 +200,7 @@
                         yearHash[key].push([d.year,d.count]);
                 }
              yearHash[key].sort(function(a,b){return a[0]-b[0]})
-             console.log(yearHash[key])
+             // console.log(yearHash[key])
             })
         }
 
@@ -190,7 +208,7 @@
         //
         // console.log(data1[0])
         data1.sort(function(a,b){return b.y-a.y})
-        console.log(data1)
+        // console.log(data1)
         // build the data for the first layer
         dataByBuilding = [{
             "name":"Buildings",
@@ -288,7 +306,7 @@
         // console.log(str)
         // var li = ['B1_STR_NAME','OBJECTID','APPLICANT_BUS_NAME','APPLICANT_FULL_NAME','B1_ALT_ID','LSN','ZIP_CODE','B1_PER_TYPE','PERMIT_STATUS','ISSUED_YEAR']
         //slice
-        // dataSet = dataSet.slice(0,1000)
+        dataSet = dataSet.slice(0,1000)
         // dataSet2 = dataSet
         //slice
         // dataset
@@ -299,7 +317,7 @@
             nameColumns.push({"title":d});
         });
 
-        console.log(nameColumns);
+        // console.log(nameColumns);
 
         // load the data 
         $(document).ready(function() {
