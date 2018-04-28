@@ -41,19 +41,19 @@ d3.csv("Building_Permits.csv", function cb(mydata){
     search = Wade(tempArray);
 });
 
-var idk = d3.select("#search").append("svg")
+var idk = d3.select("#search2").append("svg")
     .attr("width", 2000)
     .attr("height", 30)
     .append("text")
     .attr("id", "mytext");
  
-var idk2 = d3.select("#search").append("svg")
+var idk2 = d3.select("#search2").append("svg")
     .attr("width", 2000)
     .attr("height", 30)
     .append("text")
     .attr("id", "mytext2");
 
-var idk3 = d3.select("#search").append("svg")
+var idk3 = d3.select("#search2").append("svg")
     .attr("width", 2000)
     .attr("height", 30)
     .append("text")

@@ -16,7 +16,6 @@
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <script type="text/javascript" src="d3.min.js"></script>
     <script type="text/javascript" src="wade.js"></script>
-
   <style>
 
   /* textarea{
@@ -59,44 +58,60 @@
     #panel {
       position: absolute;
       left: 990px;
-      top: 280px;
-      height: 500px;
-      width: 270px;
-    }
-    #legend {
-      position: absolute;
-      left: 1250px;
-      top: 280px;
-      height: 360px;
-      width: 200px;
+      top: 150px;
+      height: 370px;
+      width: 500px;
     }
 
     #street-view{
       position: absolute;
       left: 1005px;
-      top: 600px;
-      height: 380px;
+      top: 470px;
+      height: 510px;
       width: 470px;
     }
 
-    /* #search {
-      border-style: solid;
+    #search {
+      margin-top: 50px;
+      border-style:solid;
+      border-color:gray;
       position: absolute;
       left: 20px;
       top: 100px;
-      height: 100px;
-      width: 500px;
-    } */
+      height: 130px;
+      width: 960px;
+    }
+/*
+    #search2{
+
+
+    }*/
+    #child-left{
+    float: left;
+    width: 400px;
+
+    }
+    #search-2{
+        float: right;
+        width: 450px;
+    }
+    /*#map {
+      position: absolute;
+      left: 20px;
+      top: 200px;
+      height: 700px;
+      width: 960px;
+    }*/
 
     #map {
       position: absolute;
       left: 20px;
-      top: 280px;
+      top: 290px;
       height: 700px;
       width: 960px;
     }
   </style>
-  	<style type="text/css">
+    <style type="text/css">
       div.bar {
         display: inline-block;
         width: 15px;
@@ -135,26 +150,51 @@
         </div>
       </nav>
   </div>
+<div>
   <h2 style ="text-align:center">The Urban Structure of Columbus Ohio</h2>
   <p style ="text-align:center">  A look at the city's structural development from 2013 to 2018.</p>
+</div>
 
-<!-- <div id ='search'> -->
-  <div >
-    <textarea cols="20" rows="1" id="myTextArea" value="Search" placeholder="Search an Address&hellip;">
-    </textarea>
-    <button onClick="handleClick()">Search</button>
+<div id ='search'>
+
+  <div id='child-left'>
+    <table style="margin-top: 10px;margin-left:20px">
+      <tr>  
+        <td><h4>Search for address</h4></td>
+      </tr>
+      <tr>
+      <td>
+        <textarea cols="40" rows="1" id="myTextArea" value="Search" placeholder="Search an Address&hellip;"></textarea>
+      </td>
+      <!-- <td width = "40"> </td> -->
+      <td width = "20"> </td>
+      <td>
+        <button onClick="handleClick()">Go!</button>
+      </td>
+    </tr>
+    </table>
+
+   
   </div>
-<!-- </div> -->
+
+  <div id='search2'>
+     <script type="text/javascript" src="search.js"></script>
+
+  </div>
+</div>
+
 
 <div id = 'map'>
-<script type='text/javascript' src="map.js"></script></div>
-<div id = 'search'>
-<script type="text/javascript" src="search.js"></script></div>
-<div id = "legend">
+  <script type='text/javascript' src="map.js">
+  </script>
+</div>
+<!-- <div id = 'search'>
+</div> -->
+<!-- <div id = "legend">
     <img src="Legend.jpg" alt="" style = "width:250px"></div>
-<div>
+<div> -->
   <div class="container" id="panel">
-    <div class="panel panel-default" style="position: relative; height: 320px;">
+    <div class="panel panel-default" style="position: relative; height: 300px;">
       <div class="panel-heading">More Data Point Information</div>
       <div class="panel-body"><p>Address: <span id="address-cell"> </span> </p><p>Type: <span id="type-cell"> </span> </p><p>Sub-Type: <span id="sub-type-cell"> </span> </p><p>Category: <span id="category-cell"> </span> </p><p>Applicant Name: <span id="name-cell"> </span> </p><p>Applicant Business Name: <span id="bus-cell"> </span> </p><p>Permit Status: <span id="permit-cell"> </span> </p><p>Year Issued: <span id="year-cell"> </span> </p></div>
     </div>
