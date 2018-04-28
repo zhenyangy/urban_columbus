@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+  
+  <head>
+    <!-- build a map with the slide bar to show the change of buildings throw time-->
+    <!-- insert the map as the background and use the datapoints from the dataset -->
+
+    <!-- importing libraries -->
+    
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel = "stylesheet" href ="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"></link>
+    <link rel = "stylesheet" href ="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css"></link>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+  
+
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/data.js"></script>
+    <script src="https://code.highcharts.com/modules/drilldown.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src ="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script type="text/javascript" src = "https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+    <script ></script>
+    <script type="text/javascript" src = "https://cdn.datatables.net/buttons/1.5.1/js/buttons.colVis.min.js"></script>
+    <script ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- <script type='text/javascript' src="analysis.js"></script> -->
+    <style>
+        h2{
+          color: blue;
+        }
+        #main-content {
+          margin-top:50px;
+          margin-left:100px;
+        } 
+       
+    </style>
+    <!-- A list that functions as a nav bar -->
+
+    <script>
+
+    let fileName = 'buildings_group.csv'
+    // var li = ['B1_STR_NAME','OBJECTID','APPLICANT_BUS_NAME','APPLICANT_FULL_NAME','B1_ALT_ID','LSN','B1_PER_TYPE','PERMIT_STATUS','ISSUED_YEAR','ZIP_CODE'];
+    var li = ['B1_STR_NAME','OBJECTID','APPLICANT_BUS_NAME','APPLICANT_FULL_NAME','B1_ALT_ID','LSN','ZIP_CODE','B1_PER_TYPE','PERMIT_STATUS','ISSUED_YEAR'];
+    d3.csv(fileName, initiate2, load_data);
+
+    function initiate(d){
+        //X,Y,B1_PER_TYPE,ISSUED_YEAR
+        // list = ['X','Y','B1_PER_ID1','B1_PER_ID3','B1_ALT_ID','B1_PARCEL_NBR','']
+        // result = {
+        // }  
+        // incomeWithExpenditure.push(result);
+        result = []
+        li.forEach(
+            function(d2,i){
+                result.push(d[d2])
+            }
+        )
+        //columns
+        
+        return result;  
+    } 
+
+    function initiate2(d){
+        result = {
+            year: d['ISSUED_YEAR'],
+            type: d['B1_PER_TYPE'], 
+            count:parseInt(d['count']), 
+            percent: parseFloat(d['percentage'])}   
+                    // incomeWithExpenditure.push(result);
+        return result;  
+
+    }
+     
+    function loadingHighCharts(data1, data2){
+        // console.log(data2[0])
+        Highcharts.chart('container', {
+            chart:{
+                type:'pie'
+            },
+            title:{
+                text:'<h3>Buildings in Recent Years (2010-2017)</h3>'
+            },
+        // subtitle: {
+     //        text: 'Click the slices to view versions. Source: <a href="http://statcounter.com" target="_blank">statcounter.com</a>'
+     //    },
+        plotOptions: {
+            series: {
+                dataLabels: {
+                    enabled: true,
+                    format: '{point.name}: {point.y}'
+                }
+            }
+        },
+
+        tooltip: {
+            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> of total<br/>'
+        },
+
+        "series": data1,
+
+        "drilldown": {
+            "series":data2
+        }
+        
+        })
+
+
+    }
+
+    function load_data(error,data){
+        if (error) throw error;
+
+        //Create a hash 
+        buildingHash = {};
+
+        // print the original data
+        // console.log(data[0].count+1)
+        //process the js data group by year first
+        data.forEach(function(d,i){
+            if (!(d.type in buildingHash)){
+                // console.log(d.count)
+                buildingHash[d.type] = d.count;
+            }else{
+                buildingHash[d.type] += d.count;
+            }
+        })  
+
+        data1 = [];
+        data2 = [];
+        // console.log(buildingHash)
+        // iterate over the key, building the objects
+        for(var key in buildingHash){
+            data1.push(
+                {"name":key,
+                "y": buildingHash[key],
+                "drilldown": key
+                }
+            );
+        }
+
+        yearHash = {};
+        for(key in buildingHash){
+                yearHash[key] = []
+                data.forEach(function(d,i){
+                    if(d.type==key){
+                        yearHash[key].push([d.year,d.count]);
+                }
+            })
+        }
+
+
+        //
+        // console.log(data1[0])
+        
+        // build the data for the first layer
+        dataByBuilding = [{
+            "name":"Buildings",
+            "colorByPoint":true,
+            "data":data1 }];
+
+        // console.log(dataByBuilding)
+
+        for(key in buildingHash){
+            data2.push(
+            {"name":key,
+             "id": key,
+             "data":yearHash[key]
+            });
+        }
+        // loading the high charts
+        loadingHighCharts(dataByBuilding, data2);
+        var fileName2 = "Building_Details.csv";
+        // console.log("ffff");
+        d3.csv(fileName2,initiate,loadDetails);
+
+    }
+
+    function load_data_by_year(error,data){
+        if (error) throw error;
+
+        //Create a hash 
+        buildingHash = {};
+
+        // print the original data
+        // console.log(data[0].count+1)
+        //process the js data group by year first
+        data.forEach(function(d,i){
+            if (!(d.type in buildingHash)){
+                // console.log(d.count)
+                buildingHash[d.year] = d.count;
+            }else{
+                buildingHash[d.year] += d.count;
+            }
+        })  
+
+        data1 = [];
+        data2 = [];
+        // console.log(buildingHash)
+        // iterate over the key, building the objects
+        for(var key in buildingHash){
+            data1.push(
+                {"name":key,
+                "y": buildingHash[key],
+                "drilldown": key
+                }
+            );
+        }
+
+        typeHash = {};
+        for(key in buildingHash){
+               typeHash[key] = []
+                data.forEach(function(d,i){
+                    if(d.type==key){
+                        typeHash[key].push([d.type,d.count]);
+                }
+            })
+        }
+
+
+        //
+        // console.log(data1[0])
+        
+        // build the data for the first layer
+        dataByBuilding = [{
+            "name":"Buildings",
+            "colorByPoint":true,
+            "data":data1 }];
+
+        // console.log(dataByBuilding)
+
+        for(key in buildingHash){
+            data2.push(
+            {"name":key,
+             "id": key,
+             "data":typeHash[key]
+            });
+        }
+        // loading the high charts
+        loadingHighCharts(dataByBuilding, data2);
+        var fileName2 = "Building_Details.csv";
+        // console.log("ffff");
+        d3.csv(fileName2,initiate,loadDetails);
+
+    }
+
+    function loadDetails(error,dataSet){   
+        // console.log(dataSet[0])
+        // var str = "OBJECTID,B1_PER_ID1,B1_PER_ID3,B1_ALT_ID,B1_PARCEL_NBR,B1_HSE_NBR_START,B1_STR_DIR,B1_STR_NAME,B1_STR_SUFFIX,B1_STR_SUFFIX_DIR,LSN,APPLICANT_BUS_NAME,APPLICANT_FULL_NAME,B1_PER_GROUP,B1_PER_TYPE,B1_PER_SUB_TYPE,B1_PER_CATEGORY,GENERAL_TYPE,PERMIT_STATUS,SQFT,G3_VALUE_TTL,ISSUED_DT,ISSUED_YEAR,LAST_STATUS_DT,ZIP_CODE,COLS_KEY,GEO_SOURCE";
+        // console.log(str)
+        // var li = ['B1_STR_NAME','OBJECTID','APPLICANT_BUS_NAME','APPLICANT_FULL_NAME','B1_ALT_ID','LSN','ZIP_CODE','B1_PER_TYPE','PERMIT_STATUS','ISSUED_YEAR']
+        //slice
+        dataSet = dataSet
+        // dataSet2 = dataSet
+        //slice
+        // dataset
+        // var arrNames = str.split(',');
+        var arrNames =['Name','ID','Applicant Business','Applicant Name','ALT ID','Address','Zip Code','Type','Permit Status','Issued Year']
+        var nameColumns = [];
+        arrNames.forEach(function(d,i){
+            nameColumns.push({"title":d});
+        });
+
+        console.log(nameColumns);
+
+        // load the data 
+        $(document).ready(function() {
+             // console.log("fuck");
+                $('#DetailsData').DataTable({
+                    data:dataSet,
+                    columns: nameColumns,
+                    "deferLoading": 1000000,
+                    "pageLength": 15,
+                    // dom: 'Bfrtip',
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'columnsToggle'
+                    ]
+                });
+        });
+
+         // $('#DetailsData').DataTable({
+         //            // data:dataSet,
+         //            // columns: nameColumns,
+         //            // dom: 'Bfrtip',
+         //            
+
+         //    });
+     }
+
+
+// read the files
+
+
+    </script>
+
+  </head>
+
+  <body>
+    <!-- navigation bars -->
+    <div>
+     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">City of Columbus</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <!-- <li><a href="index.html">Home</a></li> -->
+            <li class="active"><a href="map_interaction.html">Interactive Map</a></li>
+            <li><a href="analysis.html">Data Analysis</a></li>
+          </ul>
+          <!-- <button class="btn btn-danger navbar-btn">Button</button> -->
+        </div>
+      </nav>
+    </div>
+
+    <!-- The main content -->
+    <div ID="main-content">
+      
+    <h2>Data and Analysis</h2>
+       <div style ="height:40%" ID = "container">
+               
+       </div>
+       <!-- <div>
+       
+        </div> -->
+       <div style = "margin:5%;height:40%" ID="Details_Table">
+        <h3 style ="color:purple">Details Table View</h3>
+        
+        <table id="DetailsData" class="display" style="width:100%">
+
+        </table>
+
+       </div>
+
+    </div>
+    
+
+  </body>
+
+
+</html>

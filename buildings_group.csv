@@ -1,0 +1,94 @@
+ISSUED_YEAR,B1_PER_TYPE,count,percentage
+2010,Commercial,7181,0.022424787
+2010,Demolition,319,0.000996171
+2010,Festival,40,0.000124912
+2010,Graphics Building Ground,336,0.001049259
+2010,Graphics Building Neon,4,1.25E-05
+2010,Graphics Building Projecting,40,0.000124912
+2010,Graphics Building Roof,2,6.25E-06
+2010,Graphics Building Wall,678,0.002117255
+2010,Multi Family,3289,0.010270871
+2010,Residential,24974,0.077988671
+2010,Tent,39,0.000121789
+2011,Commercial,8501,0.026546876
+2011,Demolition,387,0.001208521
+2011,Festival,32,9.99E-05
+2011,Graphics Building Ground,431,0.001345924
+2011,Graphics Building Neon,3,9.37E-06
+2011,Graphics Building Projecting,50,0.00015614
+2011,Graphics Building Roof,8,2.50E-05
+2011,Graphics Building Wall,971,0.003032233
+2011,Multi Family,3533,0.011032833
+2011,Residential,20602,0.064335813
+2011,Tent,40,0.000124912
+2012,Commercial,9260,0.028917077
+2012,Demolition,401,0.001252241
+2012,Festival,42,0.000131157
+2012,Graphics Building Ground,411,0.001283469
+2012,Graphics Building Projecting,29,9.06E-05
+2012,Graphics Building Roof,3,9.37E-06
+2012,Graphics Building Wall,744,0.002323359
+2012,Multi Family,4424,0.013815243
+2012,Residential,23448,0.073223286
+2012,Tent,42,0.000131157
+2013,Commercial,10121,0.031605803
+2013,Demolition,496,0.001548906
+2013,Festival,61,0.00019049
+2013,Graphics Building Ground,398,0.001242872
+2013,Graphics Building Neon,1,3.12E-06
+2013,Graphics Building Projecting,60,0.000187368
+2013,Graphics Building Roof,14,4.37E-05
+2013,Graphics Building Wall,941,0.00293855
+2013,Multi Family,4416,0.013790261
+2013,Residential,23648,0.073847845
+2013,Tent,45,0.000140526
+2014,Commercial,9356,0.029216866
+2014,Demolition,25,7.81E-05
+2014,Festival,59,0.000184245
+2014,Graphics Building Ground,353,0.001102346
+2014,Graphics Building Projecting,58,0.000181122
+2014,Graphics Building Roof,2,6.25E-06
+2014,Graphics Building Wall,848,0.00264813
+2014,Multi Family,4252,0.013278122
+2014,Residential,23600,0.073697951
+2014,Tent,56,0.000174876
+2015,Commercial,8993,0.028083291
+2015,Festival,51,0.000159263
+2015,Graphics Building Ground,365,0.00113982
+2015,Graphics Building Neon,2,6.25E-06
+2015,Graphics Building Projecting,75,0.00023421
+2015,Graphics Building Roof,6,1.87E-05
+2015,Graphics Building Wall,875,0.002732445
+2015,Multi Family,4859,0.015173659
+2015,Residential,25601,0.079946663
+2015,Tent,50,0.00015614
+2016,Commercial,8632,0.026955962
+2016,Festival,59,0.000184245
+2016,Graphics Building Ground,391,0.001221013
+2016,Graphics Building Projecting,61,0.00019049
+2016,Graphics Building Roof,1,3.12E-06
+2016,Graphics Building Wall,804,0.002510727
+2016,Multi Family,3841,0.011994654
+2016,Residential,26006,0.081211394
+2016,Tent,66,0.000206104
+2017,"1,2,3 Family",13925,0.043484914
+2017,Commercial,9106,0.028436167
+2017,Festival,58,0.000181122
+2017,Graphics Building Ground,384,0.001199153
+2017,Graphics Building Neon,2,6.25E-06
+2017,Graphics Building Projecting,58,0.000181122
+2017,Graphics Building Roof,3,9.37E-06
+2017,Graphics Building Wall,881,0.002751182
+2017,Multi Family,4478,0.013983874
+2017,Residential,12104,0.037798305
+2017,Tent,82,0.000256069
+2018,"1,2,3 Family",4985,0.015567131
+2018,Commercial,2206,0.006888885
+2018,Festival,3,9.37E-06
+2018,Graphics Building Ground,88,0.000274806
+2018,Graphics Building Projecting,6,1.87E-05
+2018,Graphics Building Roof,1,3.12E-06
+2018,Graphics Building Wall,193,0.000602699
+2018,Multi Family,887,0.002769919
+2018,Residential,952,0.0029729
+2018,Tent,12,3.75E-05

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+  
+  <head>
+    <!-- build a map with the slide bar to show the change of buildings throw time-->
+    <!-- insert the map as the background and use the datapoints from the dataset -->
+
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script type="text/javascript" src="d3.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+      body{
+          /*background: url('background_Columbus.jpeg'); */
+          background-repeat: no-repeat;
+         /* height:100%;
+          width:100%;*/
+          /*give the image */
+        }
+        #main-content {
+          margin-top:50px;
+          margin-left:100px;
+        } 
+       
+       p{
+        font-size: 20px;
+       }
+       #timebar{
+      position: absolute;
+      left: 985px;
+      top: 455px;
+      height: 415px;
+      width: 470px;
+      }
+    </style>
+    <!-- A list that functions as a nav bar -->
+     <script>
+    $(document).ready(function() {   
+        var slider = document.getElementById("myRange");
+        // var output = document.getElementById("demo");
+        // output.innerHTML = 2010;
+        var scale = 1;
+        show_pic(scale);
+
+        slider.oninput = function () {
+            // output.innerHTML = (parseInt(this.value)+2009);
+            scale = this.value;
+            show_pic(scale)
+        }
+        
+        // var svg = 
+        // .transform("translation")
+        ;
+        // .style("border", "1px solid black");
+        function show_pic(scale){
+
+            scale = +(scale)+2009
+            // delete the elements
+            d3.select("#main-content>svg").remove();
+
+            // add the elements
+            var g = d3.select("#main-content")
+            .append("svg")
+            .attr("width", 1200)
+            .attr("height", 800)
+            // .attr("stroke", grey)
+            .style("border", "2px solid grey");
+            // remove pictures
+            // add images
+            var img = g.append("svg:image")
+                        // .attr('')
+                        .attr("xlink:href", "pics/"+scale+".png")
+                        .attr('position','relative')
+                        .attr("x", "0")
+                        .attr("y", "0")
+                        .attr("width", "800")
+                        .attr("height", "800")
+                        .attr("stroke", "grey")
+                        .attr("stroke-width", "2px");
+            var img = g.append("svg:image")
+                        // .attr('')
+                        .attr("xlink:href", "Legend.jpg")
+                        .attr('position','relative')
+                        .attr("x", "800")
+                        .attr("y", "0")
+                        .attr("width", "400")
+                        .attr("height", "500");
+        }
+      });
+       
+     </script>
+
+  </head>
+
+  <body style='background-color:'>
+    <!-- navigation bars -->
+    <div>
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">City of Columbus</a>
+          </div>
+          <ul class="nav navbar-nav">
+            <!-- <li class="active"><a href="index.html">Home</a></li> -->
+            <li><a href="map_interaction.html">Interactive Map</a></li>
+            <li><a href="analysis.html">Data Analysis</a></li>
+          </ul>
+          <!-- <button class="btn btn-danger navbar-btn">Button</button> -->
+        </div>
+      </nav>
+    </div>
+    <img src="splash-image.jpg" alt="" style="
+    display: block;
+    margin-top : 0;
+    margin-left: auto;
+    margin-right: auto;">
+    <!-- The main content -->
+    <div ID="main-content"  align = "center" style=" background-color:;width:1200px">
+       <h2 style ="text-align:center">The Urban Structure of Columbus Ohio</h2>
+
+       <br>
+       <p>  A look at the city's structural development from 2013 to 2018.</p>
+       <h2 style = "text-align:left">2010<span style="float:right;">2018</span></h2>
+       <div class="slideBarClass" id ="slidecontainer" >
+           <input type="range" min="1" max="9" value="1" class="slider" id="myRange">
+           <!-- <p>year: -->
+               <!-- <span id="demo"></span> -->
+           </p>
+       </div>
+    </div>
+    <div id = 'timebar'>  
+     
+    </div> 
+
+  </body>
+
+
+</html>
