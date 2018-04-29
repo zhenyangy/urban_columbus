@@ -109,15 +109,15 @@ show().then(function (data) {
             })
             .on('click', clicked);
 
-        // mapLayer.selectAll("circle")
-        //     .data(data1).enter()
-        //     .append("circle")
-        //     .attr("cx", function (d) { return projection([d.X, d.Y])[0]; })
-        //     .attr("cy", function (d) { return projection([d.X, d.Y])[1]; })
-        //     .attr("r", "0.5px")
-        //     .attr("stroke-width", 0)
-        //     .attr('fill', function(d){ return buildingColor(d)})
-        //     .on('click', function(d){clicked_building(d)});
+        mapLayer.selectAll("circle")
+            .data(data1).enter()
+            .append("circle")
+            .attr("cx", function (d) { return projection([d.X, d.Y])[0]; })
+            .attr("cy", function (d) { return projection([d.X, d.Y])[1]; })
+            .attr("r", "0.5px")
+            .attr("stroke-width", 0)
+            .attr('fill', function(d){ return buildingColor(d)})
+            .on('click', function(d){clicked_building(d)});
     });
     // Get building color
     function buildingColor(d) {
