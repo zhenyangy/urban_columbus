@@ -5,12 +5,51 @@ function load() {
         resolve(data);
     }));
 }
-
+var dataset = [];
+var colFlag1 = false;
+var colFlag2 = false;
+var colFlag3 = false;
+var largeArrayLength = 320105;
+var largeArray = [];
+var largeArrayIndex = [];
+var search;
+var tempArray = [];
+var tempArray_all = [];
+var location_find = [];
+output2 = [];
+tempArray2 = [];
 async function show() {
     let data1 = await load();
     return data1;
 }
-
+d3.csv("Building_Permits_v2.csv", function cb(mydata){
+    for (var i = 0; i < mydata.length; i++){
+        tempArray_all.splice(i,1,mydata[i]);
+        var flag = true;
+        if(mydata[i].B1_PER_TYPE == "Commercial"){
+            tempArray2.splice(i,1,"#f4e04d");
+        }
+        else if(mydata[i].B1_PER_TYPE == "Residential"){
+            tempArray2.splice(i,1,"#016fb9");
+        }
+        else if(mydata[i].B1_PER_TYPE == "Multi_Family"){
+            tempArray2.splice(i,1,"#61e786");
+        }
+        else if(mydata[i].B1_PER_TYPE == "Demolition"){
+            tempArray2.splice(i,1,"#f06543");
+        } 
+        else if(mydata[i].B1_PER_TYPE == "1,2,3 Family"){
+            tempArray2.splice(i,1,"#6d66ba");
+        }
+        else{
+            flag = false;
+        }
+        if(flag){
+            tempArray.splice(i,1,mydata[i].LSN);
+        }
+    }
+    search = Wade(tempArray);
+});
     var width = 960,
         height = 700,
         centered;
@@ -29,7 +68,6 @@ async function show() {
         .domain([1, 20])
         .clamp(true)
         .range(['#42d9f4', '#040856']);
-
 
     var projection = d3.geoMercator()
         .scale(80000)
@@ -66,6 +104,7 @@ async function show() {
         .style("border", "1px solid rgba(0,0,0,0.5)")
         .style('padding', '2px 6px')
         .style('background-color', 'rgba(128,128,128,0.5)');
+
     var scale_marker = svg.append('line')
         .attr("x1", 10)
         .attr("y1", 670)
@@ -73,6 +112,7 @@ async function show() {
         .attr("y2", 670)
         .attr('stroke-width', 2)
         .attr('stroke', 'black');
+
     var myText =  svg.append("text")
         .attr("y", 665)
         .attr("x", 30)
@@ -80,9 +120,9 @@ async function show() {
         .attr("class", "myLabel")
         .text("2 miles")
         .style("font-size", "10px");
+
 show().then(function (data) {
     let data1 = data
-    console.log(data);
     rec.on('click', clicked);
     d3.json('zone-2.json', function (error, mapData) {
         var features = mapData.features;
@@ -97,7 +137,7 @@ show().then(function (data) {
             .on("mouseover", function (d) {
                 console.log(d.properties.GENERAL_ZONING_CATEGORY);
                 d3.select(this).style('fill', "black");
-                return tooltip.style("visibility", "visible")
+                 return tooltip.style("visibility", "visible")
                     .style("top", (d3.event.pageY - 10) + "px")
                     .style("left", (d3.event.pageX + 12) + "px")
                     .text("type: " + d.properties.GENERAL_ZONING_CATEGORY);
@@ -117,26 +157,27 @@ show().then(function (data) {
             .attr("r", "0.5px")
             .attr("stroke-width", 0)
             .attr('fill', function(d){ return buildingColor(d)})
-            .on('click', function(d){clicked_building(d)});
+            .on('click', function(d){clicked_building(d)})
+            .style("visibility","visible");
     });
     // Get building color
     function buildingColor(d) {
         // for (var i = 0; i < d.length; i++){
             // var flag = true;
             if(d.B1_PER_TYPE == "Commercial"){
-                return "#F4304D";
+                return "#f4e04d";
             }
             else if(d.B1_PER_TYPE == "Residential"){
-                return "#016FB9";
+                return "#016fb9";
             }
             else if(d.B1_PER_TYPE == "Multi_Family"){
-                return "#61E786";
+                return "#61e786";
             }
             else if(d.B1_PER_TYPE == "Demolition"){
-                return "#F06543";
+                return "#f06543";
             } 
             else if(d.B1_PER_TYPE == "1,2,3 Family"){
-                return "#6D66BA";
+                return "#6d66ba";
             }
             // else{
             //     flag = false;

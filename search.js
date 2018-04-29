@@ -1,45 +1,45 @@
-var dataset = [];
-var colFlag1 = false;
-var colFlag2 = false;
-var colFlag3 = false;
-var largeArrayLength = 320105;
-var largeArray = [];
-var largeArrayIndex = [];
-var search;
-var tempArray = [];
-var tempArray_all = [];
-var location_find = [];
-output2 = [];
-tempArray2 = [];
+// var dataset = [];
+// var colFlag1 = false;
+// var colFlag2 = false;
+// var colFlag3 = false;
+// var largeArrayLength = 320105;
+// var largeArray = [];
+// var largeArrayIndex = [];
+// var search;
+// var tempArray = [];
+// var tempArray_all = [];
+// var location_find = [];
+// output2 = [];
+// tempArray2 = [];
 
-d3.csv("Building_Permits.csv", function cb(mydata){
-    for (var i = 0; i < mydata.length; i++){
-        tempArray_all.splice(i,1,mydata[i]);
-        var flag = true;
-        if(mydata[i].B1_PER_TYPE == "Commercial"){
-            tempArray2.splice(i,1,"#F4304D");
-        }
-        else if(mydata[i].B1_PER_TYPE == "Residential"){
-            tempArray2.splice(i,1,"#016FB9");
-        }
-        else if(mydata[i].B1_PER_TYPE == "Multi_Family"){
-            tempArray2.splice(i,1,"#61E786");
-        }
-        else if(mydata[i].B1_PER_TYPE == "Demolition"){
-            tempArray2.splice(i,1,"#F06543");
-        } 
-        else if(mydata[i].B1_PER_TYPE == "1,2,3 Family"){
-            tempArray2.splice(i,1,"#6D66BA");
-        }
-        else{
-            flag = false;
-        }
-        if(flag){
-            tempArray.splice(i,1,mydata[i].LSN);
-        }
-    }
-    search = Wade(tempArray);
-});
+// d3.csv("Building_Permits_v2.csv", function cb(mydata){
+//     for (var i = 0; i < mydata.length; i++){
+//         tempArray_all.splice(i,1,mydata[i]);
+//         var flag = true;
+//         if(mydata[i].B1_PER_TYPE == "Commercial"){
+//             tempArray2.splice(i,1,"#f4e04d");
+//         }
+//         else if(mydata[i].B1_PER_TYPE == "Residential"){
+//             tempArray2.splice(i,1,"#016fb9");
+//         }
+//         else if(mydata[i].B1_PER_TYPE == "Multi_Family"){
+//             tempArray2.splice(i,1,"#61e786");
+//         }
+//         else if(mydata[i].B1_PER_TYPE == "Demolition"){
+//             tempArray2.splice(i,1,"#f06543");
+//         } 
+//         else if(mydata[i].B1_PER_TYPE == "1,2,3 Family"){
+//             tempArray2.splice(i,1,"#6d66ba");
+//         }
+//         else{
+//             flag = false;
+//         }
+//         if(flag){
+//             tempArray.splice(i,1,mydata[i].LSN);
+//         }
+//     }
+//     search = Wade(tempArray);
+// });
 
 var idk = d3.select("#search2").append("svg")
     .attr("width", 2000)
@@ -175,31 +175,23 @@ var txt3 = idk3
     });
 
 function handleClick(event){
-        var output = []; 
+        var output = [];
             var count = 0;
             var input = document.getElementById("myTextArea").value.toUpperCase();
             if(search(input)[count].score >= .5){
                 output.splice(count,1,tempArray[search(input)[count].index]);
                 output2.splice(count,1,tempArray2[search(input)[count].index]);
-                // location_find.splice(count, 1, (tempArray_all[search(input)[count].index]));
                 count++;
                 lookup(count,count, input, output, output2);
-                // lookup_all(count,count, input, location_find);
                 count++;
                 lookup(count,count, input, output, output2);
-                // lookup_all(count,count, input, location_find);
                 match_name(output, location_find)
-                // store location
-
-                console.log("locationfind",location_find);
-                console.log(output)
             }
             else{
                 output.splice(1,1," ");
                 output.splice(2,1," ");
                 output.splice(3,1," ");
             }
-            console.log(output)
         //  d3.csv("Building_Permits.csv", function cb(mydata){
         //    // console.log(mydata.length);
         //     var output = []; 
@@ -287,7 +279,6 @@ function draw(val){
 }
 function clicked_search(d) {
     var x, y, k;
-    console.log(d);
     document.getElementById('address-cell').textContent=d.LSN;
     document.getElementById('type-cell').textContent=d.B1_PER_TYPE;
     document.getElementById('sub-type-cell').textContent=d.B1_PER_SUB_TYPE;
@@ -340,26 +331,26 @@ function match_name(input, output){
     }
 }
 
-function lookup_all(count, outcount, input, output ){
-    var flag = true;
-    for (var j = outcount; j > 0; j--){
-                       if(output[j-1] == tempArray_all[search(input)[count].index])
-                           flag = false;
-    }
-    if(flag){
-       if(search(input)[count].score == 1){
-           output.splice(outcount,1,tempArray_all[search(input)[count].index]);
-           count++;
-       }
-       else{
-           output.splice(outcount,1," ");
-           return;
-       }
-    }
-    else{
-        lookup_all(count + 1, count, input, output);
-    }
-}
+// function lookup_all(count, outcount, input, output ){
+//     var flag = true;
+//     for (var j = outcount; j > 0; j--){
+//                        if(output[j-1] == tempArray_all[search(input)[count].index])
+//                            flag = false;
+//     }
+//     if(flag){
+//        if(search(input)[count].score == 1){
+//            output.splice(outcount,1,tempArray_all[search(input)[count].index]);
+//            count++;
+//        }
+//        else{
+//            output.splice(outcount,1," ");
+//            return;
+//        }
+//     }
+//     else{
+//         lookup_all(count + 1, count, input, output);
+//     }
+// }
 function initialize() {
     panorama = new google.maps.StreetViewPanorama(
         document.getElementById('street-view'),
