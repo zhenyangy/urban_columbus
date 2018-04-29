@@ -149,16 +149,16 @@ d3.csv("Building_Permits_v2.csv", function cb(mydata){
             })
             .on('click', clicked);
 
-        mapLayer.selectAll("circle")
-            .data(tempArray_all).enter()
-            .append("circle")
-            .attr("cx", function (d) { return projection([d.X, d.Y])[0]; })
-            .attr("cy", function (d) { return projection([d.X, d.Y])[1]; })
-            .attr("r", "0.5px")
-            .attr("stroke-width", 0)
-            .attr('fill', function(d){ return buildingColor(d)})
-            .on('click', function(d){clicked_building(d)})
-            .style("visibility","hidden");
+        // mapLayer.selectAll("circle")
+        //     .data(tempArray_all).enter()
+        //     .append("circle")
+        //     .attr("cx", function (d) { return projection([d.X, d.Y])[0]; })
+        //     .attr("cy", function (d) { return projection([d.X, d.Y])[1]; })
+        //     .attr("r", "0.5px")
+        //     .attr("stroke-width", 0)
+        //     .attr('fill', function(d){ return buildingColor(d)})
+        //     .on('click', function(d){clicked_building(d)})
+        //     .style("visibility","hidden");
     });
     // Get building color
     function buildingColor(d) {
@@ -210,6 +210,23 @@ d3.csv("Building_Permits_v2.csv", function cb(mydata){
             k = 4;
             centered = d;
             myText.text("0.5 miles");
+            for (var i=0; i<tempArray_all.length; i++){
+                x1 = projection([tempArray_all[i].X, tempArray_all[i].Y])[0]
+                y1 = projection([tempArray_all[i].X, tempArray_all[i].Y])[1]
+                var dist = Math.sqrt( (x1-x)*(x1-x) + (y1-y)*(y1-y) );
+                if (dist < 10){
+                    mapLayer.selectAll("circle")
+                        .data(tempArray_all).enter()
+                        .append("circle")
+                        .attr("cx", function (d) { return projection([d.X, d.Y])[0]; })
+                        .attr("cy", function (d) { return projection([d.X, d.Y])[1]; })
+                        .attr("r", "0.5px")
+                        .attr("stroke-width", 0)
+                        .attr('fill', function(d){ return buildingColor(d)})
+                        .on('click', function(d){clicked_building(d)})
+                        .style("visibility","hidden");
+                }
+            }
         } else {
             x = width / 2;
             y = height / 2;
