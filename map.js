@@ -1,7 +1,7 @@
 
 
 function load() {
-    return new Promise((resolve, reject) => d3.csv("Building_Permits_v2.csv", function (error, data) {
+    return new Promise((resolve, reject) => d3.csv("Building_Permits.csv", function (error, data) {
         resolve(data);
     }));
 }
