@@ -158,7 +158,7 @@ d3.csv("Building_Permits_v2.csv", function cb(mydata){
             .attr("stroke-width", 0)
             .attr('fill', function(d){ return buildingColor(d)})
             .on('click', function(d){clicked_building(d)})
-            .style("visibility","visible");
+            .style("visibility","hidden");
     });
     // Get building color
     function buildingColor(d) {
