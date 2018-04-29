@@ -66,7 +66,20 @@ async function show() {
         .style("border", "1px solid rgba(0,0,0,0.5)")
         .style('padding', '2px 6px')
         .style('background-color', 'rgba(128,128,128,0.5)');
-
+    var scale_marker = svg.append('line')
+        .attr("x1", 10)
+        .attr("y1", 670)
+        .attr("x2", 50)
+        .attr("y2", 670)
+        .attr('stroke-width', 2)
+        .attr('stroke', 'black');
+    var myText =  svg.append("text")
+        .attr("y", 665)
+        .attr("x", 30)
+        .attr('text-anchor', 'middle')
+        .attr("class", "myLabel")
+        .text("2 miles")
+        .style("font-size", "10px");
 show().then(function (data) {
     let data1 = data
     console.log(data);
@@ -96,15 +109,15 @@ show().then(function (data) {
             })
             .on('click', clicked);
 
-        mapLayer.selectAll("circle")
-            .data(data1).enter()
-            .append("circle")
-            .attr("cx", function (d) { return projection([d.X, d.Y])[0]; })
-            .attr("cy", function (d) { return projection([d.X, d.Y])[1]; })
-            .attr("r", "0.5px")
-            .attr("stroke-width", 0)
-            .attr('fill', function(d){ return buildingColor(d)})
-            .on('click', function(d){clicked_building(d)});
+        // mapLayer.selectAll("circle")
+        //     .data(data1).enter()
+        //     .append("circle")
+        //     .attr("cx", function (d) { return projection([d.X, d.Y])[0]; })
+        //     .attr("cy", function (d) { return projection([d.X, d.Y])[1]; })
+        //     .attr("r", "0.5px")
+        //     .attr("stroke-width", 0)
+        //     .attr('fill', function(d){ return buildingColor(d)})
+        //     .on('click', function(d){clicked_building(d)});
     });
     // Get building color
     function buildingColor(d) {
@@ -155,16 +168,19 @@ show().then(function (data) {
             y = centroid[1];
             k = 4;
             centered = d;
+            myText.text("0.5 miles");
         } else {
             x = width / 2;
             y = height / 2;
             k = 1;
             centered = null;
+            myText.text("2 miles");
         }
 
         g.transition()
             .duration(750)
             .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')scale(' + k + ')translate(' + -x + ',' + -y + ')');
+        
     }
 
     function clicked_building(d) {
@@ -184,16 +200,19 @@ show().then(function (data) {
             y = centroid[1];
             k = 4;
             centered = d;
+            myText.text("0.5 miles");
         } else {
             console.log("oops")
             x = width / 2;
             y = height / 2;
             k = 1;
             centered = null;
+            myText.text("2 miles");
         }
         g.transition()
             .duration(750)
             .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')scale(' + k + ')translate(' + -x + ',' + -y + ')');
+        
     }
 
     function mouseover(d) {

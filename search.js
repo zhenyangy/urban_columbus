@@ -304,6 +304,8 @@ function clicked_search(d) {
     g.transition()
         .duration(750)
         .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')scale(' + k + ')translate(' + -x + ',' + -y + ')');
+    
+    myText.text("0.5 miles");
 
 }
 

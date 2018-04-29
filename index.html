@@ -16,11 +16,11 @@
       body{
           /*background: url('background_Columbus.jpeg'); */
           /*background-repeat: no-repeat;*/
-          background-color: #61e786;
+          background-color: #ffffff;
           font-weight:1000;
           font-size: 18px;
           font-family: Helvetica, Sans-Serif;
-          color:cornsilk;
+          color:black;
          /* height:100%;
           width:100%;*/
           /*give the image */
@@ -28,6 +28,7 @@
         #main-content {
           margin-top:0px;
           margin-left:100px;
+          margin-right:100px;
         } 
        
        p{
@@ -40,6 +41,13 @@
         height: 415px;
         width: 470px;
       }
+     .navbar-nav>li>a:hover {
+    color: rgb(15, 14, 14);
+    background-color: transparent;
+    }
+    .navbar-nav li a {
+      color: white;
+    }
     </style>
     <!-- A list that functions as a nav bar -->
      <script>
@@ -49,7 +57,6 @@
         // output.innerHTML = 2010;
         var scale = 1;
         show_pic(scale);
-
         slider.oninput = function () {
             // output.innerHTML = (parseInt(this.value)+2009);
             scale = this.value;
@@ -89,10 +96,33 @@
                         // .attr('')
                         .attr("xlink:href", "Legend.jpg")
                         .attr('position','relative')
-                        .attr("x", "800")
+                        .attr("x", "797")
                         .attr("y", "0")
+                        .attr("width", "404")
+                        .attr("height", "500")
+                        .attr("stroke", "grey")
+                        .attr("stroke-width", "2px");
+            var img3 = g.append("svg:image")
+                        .attr("xlink:href", "pics/data-" + scale + ".jpg")
+                        .attr('position', 'relative')
+                        .attr("x", "800")
+                        .attr("y", "280")
                         .attr("width", "400")
-                        .attr("height", "500");
+                        .attr("height", "700");
+            var line_h = g.append("line")
+                        .attr("x1", 800)
+                        .attr("y1", 0)
+                        .attr("x2", 800)
+                        .attr("y2", 800)
+                        .style("stroke-width", 4)
+                        .style("stroke", "grey");
+            var line_v = g.append("line")
+                        .attr("x1", 800)
+                        .attr("y1", 450)
+                        .attr("x2", 1200)
+                        .attr("y2", 450)
+                        .style("stroke-width", 4)
+                        .style("stroke", "grey");
         }
       });
        
@@ -102,14 +132,14 @@
 
   <body style='background-color:'>
     <!-- navigation bars -->
-    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+    <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #67d198;">
         <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="index.html">City of Columbus</a>
-          </div>
-          <ul class="nav navbar-nav">
-            <!-- <li class="active"><a href="index.html">Home</a></li> -->
-            <li><a href="map_interaction.html">Interactive Map</a></li>
+          <!-- <div class="navbar-header"> -->
+            <!-- <a class="navbar-brand" href="index.html"  >City of Columbus</a> -->
+          <!-- </div> -->
+          <ul class="nav navbar-nav" >
+            <li class="active"><a href="index.html">City of Columbus</a></li>
+            <li><a href="map_interaction.html" >Interactive Map</a></li>
             <li><a href="analysis.html">Data Analysis</a></li>
           </ul>
         </div>

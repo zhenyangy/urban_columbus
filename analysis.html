@@ -36,11 +36,11 @@
         body{
           /*background: url('background_Columbus.jpeg'); */
           /*background-repeat: no-repeat;*/
-          background-color: #61e786;
+          background-color: #ffffff;
           font-weight:1000;
           font-size: 18px;
           font-family: Helvetica, Sans-Serif;
-          color:cornsilk;
+          color:black;
 
          /* height:100%;
           width:100%;*/
@@ -55,7 +55,13 @@
           margin-left:100px;
           margin-right:100px;
         } 
-       
+        .navbar-nav>li>a:hover {
+    color: rgb(15, 14, 14);
+    background-color: transparent;
+    }
+    .navbar-nav li a {
+      color: white;
+    }
     </style>
     <!-- A list that functions as a nav bar -->
 
@@ -381,13 +387,13 @@
   <body>
     <!-- navigation bars -->
     <div>
-     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+     <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #67d198;">
         <div class="container-fluid">
-          <div class="navbar-header">
+          <!-- <div class="navbar-header">
             <a class="navbar-brand" href="index.html">City of Columbus</a>
-          </div>
+          </div> -->
           <ul class="nav navbar-nav">
-            <!-- <li><a href="index.html">Home</a></li> -->
+            <li><a href="index.html">City of Columbus</a></li>
             <li class="active"><a href="map_interaction.html">Interactive Map</a></li>
             <li><a href="analysis.html">Data Analysis</a></li>
           </ul>
@@ -398,7 +404,7 @@
 
     <!-- The main content -->
     <div ID="main-content" style="margin:100px">   
-        <h2>Data and Analysis</h2>
+        <h2 style="color:black";>Data and Analysis</h2>
        <div style ="height:700px; margin-left:50px; margin-right:50px" ID ="container">
                
        </div>
