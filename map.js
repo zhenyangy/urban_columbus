@@ -32,7 +32,7 @@ d3.csv("Building_Permits_v2.csv", function cb(mydata){
         else if(mydata[i].B1_PER_TYPE == "Residential"){
             tempArray2.splice(i,1,"#016fb9");
         }
-        else if(mydata[i].B1_PER_TYPE == "Multi_Family"){
+        else if(mydata[i].B1_PER_TYPE == "Multi Family"){
             tempArray2.splice(i,1,"#61e786");
         }
         else if(mydata[i].B1_PER_TYPE == "Demolition"){
@@ -170,7 +170,7 @@ show().then(function (data) {
             else if(d.B1_PER_TYPE == "Residential"){
                 return "#016fb9";
             }
-            else if(d.B1_PER_TYPE == "Multi_Family"){
+            else if(d.B1_PER_TYPE == "Multi Family"){
                 return "#61e786";
             }
             else if(d.B1_PER_TYPE == "Demolition"){
