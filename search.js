@@ -291,12 +291,12 @@ function clicked_search(d) {
     var centroid=projection([d.X, d.Y]);
     x = centroid[0];
     y = centroid[1];
-    k = 4;
+    k = 8;
     g.transition()
         .duration(750)
         .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')scale(' + k + ')translate(' + -x + ',' + -y + ')');
     
-    myText.text("0.5 miles");
+    myText.text("0.25 miles");
 
 }
 

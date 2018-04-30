@@ -15,13 +15,20 @@ var largeArrayIndex = [];
 var search;
 var tempArray = [];
 var tempArray_all = [];
+var tempArray_rest = [];
 var location_find = [];
+var extra_dots;
 output2 = [];
 tempArray2 = [];
 async function show() {
     let data1 = await load();
     return data1;
 }
+d3.csv("building_kmean_v2.csv", function cb(mydata){
+    for (var i = 0; i < mydata.length; i++){
+        tempArray_rest.splice(i,1,mydata[i]);
+    }
+});
 d3.csv("Building_Permits_v2.csv", function cb(mydata){
     for (var i = 0; i < mydata.length; i++){
         tempArray_all.splice(i,1,mydata[i]);
@@ -132,6 +139,7 @@ show().then(function (data) {
     .style("border", "1px solid rgba(0,0,0,0.5)")
     .style('padding', '2px 6px')
     .style('background-color', 'rgba(128,128,128,0.5)');
+
     let data1 = data
     console.log(data1)
     rec.on('click', clicked);
@@ -168,7 +176,7 @@ show().then(function (data) {
             .attr("r", "1px")
             .attr("stroke-width", 0)
             .attr('fill', function(d){ return buildingColor(d)})
-            .on('click', function(d){clicked_building(d)})
+            .on('click', function(d){return clicked_building(d)})
             .style("visibility","visible");
     });
     // Get building color
@@ -213,38 +221,37 @@ show().then(function (data) {
 
     function clicked(d) {
         var x, y, k;
-
         if (d && centered !== d) {
             var centroid = path.centroid(d);
             x = centroid[0];
             y = centroid[1];
-            k = 4;
+            k = 8;
             centered = d;
-            myText.text("0.5 miles");
-            // for (var i=0; i<tempArray_all.length; i++){
-            //     x1 = projection([tempArray_all[i].X, tempArray_all[i].Y])[0]
-            //     y1 = projection([tempArray_all[i].X, tempArray_all[i].Y])[1]
-            //     var dist = Math.sqrt( (x1-x)*(x1-x) + (y1-y)*(y1-y) );
-            //     if (dist < 100){
-            //         console.log("load")
-            //         mapLayer.selectAll("circle")
-            //             .data(tempArray_all).enter()
-            //             .append("circle")
-            //             .attr("cx", function (d) { return projection([d.X, d.Y])[0]; })
-            //             .attr("cy", function (d) { return projection([d.X, d.Y])[1]; })
-            //             .attr("r", "0.5px")
-            //             .attr("stroke-width", 0)
-            //             .attr('fill', function(d){ return buildingColor(d)})
-            //             .on('click', function(d){clicked_building(d)})
-            //             .style("visibility","hidden");
-            //     }
-            // }
+            myText.text("0.25 miles");
+            for (var i=0; i<tempArray_rest.length; i++){
+                x1 = projection([tempArray_rest[i].X, tempArray_rest[i].Y])[0]
+                y1 = projection([tempArray_rest[i].X, tempArray_rest[i].Y])[1]
+                var dist = Math.sqrt( (x1-x)*(x1-x) + (y1-y)*(y1-y) );
+                if (dist < 20){
+                    console.log("load")
+                    var t = tempArray_rest[i];
+                    extra_dots = mapLayer.append("circle")
+                                            .attr("cx", x1)
+                                            .attr("cy", y1)
+                                            .attr("r", "0.5px")
+                                            .attr("stroke-width", 0)
+                                            .attr('fill', function(){ return buildingColor(t)})
+                                            .on('click', function(){return clicked_building(t);})
+                                            .style("visibility","visible");
+                }
+            }
         } else {
             x = width / 2;
             y = height / 2;
             k = 1;
             centered = null;
             myText.text("2 miles");
+            extra_dots.style("visibility","hidden");
         }
 
         g.transition()
@@ -255,6 +262,7 @@ show().then(function (data) {
 
     function clicked_building(d) {
         var x, y, k;
+        console.log(d)
         document.getElementById('address-cell').textContent=d.LSN;
         document.getElementById('type-cell').textContent=d.B1_PER_TYPE;
         document.getElementById('sub-type-cell').textContent=d.B1_PER_SUB_TYPE;
@@ -268,9 +276,9 @@ show().then(function (data) {
             var centroid = projection([d.X, d.Y]);
             x = centroid[0];
             y = centroid[1];
-            k = 4;
+            k = 8;
             centered = d;
-            myText.text("0.5 miles");
+            myText.text("0.25 miles");
         } else {
             console.log("oops")
             x = width / 2;
