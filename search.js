@@ -295,7 +295,23 @@ function clicked_search(d) {
     g.transition()
         .duration(750)
         .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')scale(' + k + ')translate(' + -x + ',' + -y + ')');
-    
+    for (var i=0; i<tempArray_rest.length; i++){
+                x1 = projection([tempArray_rest[i].X, tempArray_rest[i].Y])[0]
+                y1 = projection([tempArray_rest[i].X, tempArray_rest[i].Y])[1]
+                var dist = Math.sqrt( (x1-x)*(x1-x) + (y1-y)*(y1-y) );
+                if (dist < 20){
+                    console.log("load")
+                    var t = tempArray_rest[i];
+                    extra_dots = mapLayer.append("circle")
+                                            .attr("cx", x1)
+                                            .attr("cy", y1)
+                                            .attr("r", "0.5px")
+                                            .attr("stroke-width", 0)
+                                            .attr('fill', function(){ return buildingColor(t)})
+                                            .on('click', function(){return clicked_building(t);})
+                                            .style("visibility","visible");
+                }
+            }
     myText.text("0.25 miles");
 
 }
