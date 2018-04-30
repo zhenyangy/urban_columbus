@@ -1,10 +1,10 @@
 
 
-// function load() {
-//     return new Promise((resolve, reject) => d3.csv("Building_Permits_v2.csv", function (error, data) {
-//         resolve(data);
-//     }));
-// }
+function load() {
+    return new Promise((resolve, reject) => d3.csv("Building_Permits_v2.csv", function (error, data) {
+        resolve(data);
+    }));
+}
 var dataset = [];
 var colFlag1 = false;
 var colFlag2 = false;
@@ -18,10 +18,10 @@ var tempArray_all = [];
 var location_find = [];
 output2 = [];
 tempArray2 = [];
-// async function show() {
-//     let data1 = await load();
-//     return data1;
-// }
+async function show() {
+    let data1 = await load();
+    return data1;
+}
 d3.csv("Building_Permits_v2.csv", function cb(mydata){
     for (var i = 0; i < mydata.length; i++){
         tempArray_all.splice(i,1,mydata[i]);
@@ -121,8 +121,8 @@ d3.csv("Building_Permits_v2.csv", function cb(mydata){
         .text("2 miles")
         .style("font-size", "10px");
 
-// show().then(function (data) {
-//     let data1 = data
+show().then(function (data) {
+    let data1 = data
     rec.on('click', clicked);
     d3.json('zone-2.json', function (error, mapData) {
         var features = mapData.features;
@@ -150,7 +150,7 @@ d3.csv("Building_Permits_v2.csv", function cb(mydata){
             .on('click', clicked);
 
         mapLayer.selectAll("circle")
-            .data(tempArray_all).enter()
+            .data(data1).enter()
             .append("circle")
             .attr("cx", function (d) { return projection([d.X, d.Y])[0]; })
             .attr("cy", function (d) { return projection([d.X, d.Y])[1]; })
@@ -214,7 +214,8 @@ d3.csv("Building_Permits_v2.csv", function cb(mydata){
             //     x1 = projection([tempArray_all[i].X, tempArray_all[i].Y])[0]
             //     y1 = projection([tempArray_all[i].X, tempArray_all[i].Y])[1]
             //     var dist = Math.sqrt( (x1-x)*(x1-x) + (y1-y)*(y1-y) );
-            //     if (dist < 10){
+            //     if (dist < 100){
+            //         console.log("load")
             //         mapLayer.selectAll("circle")
             //             .data(tempArray_all).enter()
             //             .append("circle")
@@ -281,7 +282,7 @@ d3.csv("Building_Permits_v2.csv", function cb(mydata){
         mapLayer.selectAll('path')
             .style('fill', function (d) { return centered && d === centered ? '#D5708B' : fillFn(d); });
     }
-// })
+})
 function initialize() {
     panorama = new google.maps.StreetViewPanorama(
         document.getElementById('street-view'),
