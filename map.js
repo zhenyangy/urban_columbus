@@ -1,7 +1,7 @@
 
 
 function load() {
-    return new Promise((resolve, reject) => d3.csv("Building_Permits_v2.csv", function (error, data) {
+    return new Promise((resolve, reject) => d3.csv("building_kmean.csv", function (error, data) {
         resolve(data);
     }));
 }
@@ -94,16 +94,16 @@ d3.csv("Building_Permits_v2.csv", function cb(mydata){
     var mapLayer = g.append('g')
         .classed('map-layer', true);
 
-    var tooltip = d3.select("#tip")
-        .append("div")
-        .style("position", "absolute")
-        .style("z-index", "10")
-        .style("visibility", "hidden")
-        .style("font-weight", 'bold')
-        .style("font-size", "18px")
-        .style("border", "1px solid rgba(0,0,0,0.5)")
-        .style('padding', '2px 6px')
-        .style('background-color', 'rgba(128,128,128,0.5)');
+    // var tooltip = d3.select("#tip")
+    //     .append("div")
+    //     .style("position", "absolute")
+    //     .style("z-index", "10")
+    //     .style("visibility", "hidden")
+    //     .style("font-weight", 'bold')
+    //     .style("font-size", "18px")
+    //     .style("border", "1px solid rgba(0,0,0,0.5)")
+    //     .style('padding', '2px 6px')
+    //     .style('background-color', 'rgba(128,128,128,0.5)');
 
     var scale_marker = svg.append('line')
         .attr("x1", 10)
@@ -122,7 +122,18 @@ d3.csv("Building_Permits_v2.csv", function cb(mydata){
         .style("font-size", "10px");
 
 show().then(function (data) {
+    var tooltip = d3.select("#tip")
+    .append("div")
+    .style("position", "absolute")
+    .style("z-index", "10")
+    .style("visibility", "hidden")
+    .style("font-weight", 'bold')
+    .style("font-size", "18px")
+    .style("border", "1px solid rgba(0,0,0,0.5)")
+    .style('padding', '2px 6px')
+    .style('background-color', 'rgba(128,128,128,0.5)');
     let data1 = data
+    console.log(data1)
     rec.on('click', clicked);
     d3.json('zone-2.json', function (error, mapData) {
         var features = mapData.features;
@@ -154,11 +165,11 @@ show().then(function (data) {
             .append("circle")
             .attr("cx", function (d) { return projection([d.X, d.Y])[0]; })
             .attr("cy", function (d) { return projection([d.X, d.Y])[1]; })
-            .attr("r", "0.5px")
+            .attr("r", "1px")
             .attr("stroke-width", 0)
             .attr('fill', function(d){ return buildingColor(d)})
             .on('click', function(d){clicked_building(d)})
-            .style("visibility","hidden");
+            .style("visibility","visible");
     });
     // Get building color
     function buildingColor(d) {
@@ -254,7 +265,7 @@ show().then(function (data) {
         document.getElementById('year-cell').textContent=d.ISSUED_YEAR;
         panorama.setPosition(new google.maps.LatLng(d.Y, d.X));
         if (d && centered !== d) {
-            var centroid = [d3.event.pageX, d3.event.pageY];
+            var centroid = projection([d.X, d.Y]);
             x = centroid[0];
             y = centroid[1];
             k = 4;
