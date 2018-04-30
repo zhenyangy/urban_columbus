@@ -232,7 +232,7 @@ show().then(function (data) {
                 x1 = projection([tempArray_rest[i].X, tempArray_rest[i].Y])[0]
                 y1 = projection([tempArray_rest[i].X, tempArray_rest[i].Y])[1]
                 var dist = Math.sqrt( (x1-x)*(x1-x) + (y1-y)*(y1-y) );
-                if (dist < 20){
+                if (dist < 30){
                     console.log("load")
                     var t = tempArray_rest[i];
                     extra_dots = mapLayer.append("circle")
